@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<head>
+    <title> Catálogo de Livros </title>
+</head>
+<body>
+    <script>
+        const catalogoLivros = [];
+
+        let continuar = true;
+        do{
+            let escolha = prompt("Bem-vind@ ao nosso catálogo! Fique a vontade para escolher uma opção: \n1. Adicionar livro\n2. Exibir catálogo\n3. Buscar livro\n4. Atualizar livro\n5. Remover livro\n6. Sair");
+
+            escolha = parseInt(escolha);
+
+            switch (escolha){
+                case 1:
+                    adicionarLivro();
+                    break;
+                case 2:
+                    exibirCatalogo();
+                    break;
+                case 3:
+                    buscarLivro();
+                    break;
+                case 4:
+                    atualizarLivro();
+                    break;
+                case 5:
+                    removerLivro();
+                    break;
+                case 6:
+                    alert("Obrigada por acessar o nosso catálogo, volte sempre!");
+                    break;
+            }
+        }while (continuar);
+
+        function adicionarLivro(){
+            const nome = prompt("Qual o nome do livro que você quer adicionar? ");
+            const preco = parseFloat(prompt("Interessante! E o preço? "));
+            const descricao = prompt("Uau! Agora a descrição: ");
+
+            const livro = {
+                nome: nome,
+                preco: preco,
+                descricao: descricao
+            };
+
+            catalogoLivros.push(livro);
+            alert("Eba! O livro foi adicionado ao catálogo!");
+        }
+
+        function exibirCatalogo(){
+            let catalogoString = "Catálogo de Livros:\n\n";
+
+            catalogoLivros.forEach(function(livro){
+                catalogoString += `Nome: ${livro.nome}\nPreço: R$ ${livro.preco}\nDescrição: ${livro.descricao}\n\n`;
+            });
+
+            alert(catalogoString);
+        }
+
+        function buscarLivro(){
+            const nomeBusca = prompt("Qual o nome do livro que você deseja buscar? ");
+            let encontrado = false;
+
+            catalogoLivros.forEach(function(livro){
+                if (livro.nome === nomeBusca) {
+                    alert(`Nome: ${livro.nome}\nPreço: R$ ${livro.preco}\nDescrição: ${livro.descricao}`);
+                    encontrado = true;
+                }
+            });
+
+            if (!encontrado){
+                alert("Ops! Parece que esse livro ainda não está no nosso catálogo :()");
+            }
+        }
+
+        function atualizarLivro(){
+            const nomeBusca = prompt("Qual o nome do livro que você deseja atualizar? ");
+            let encontrado = false;
+
+            catalogoLivros.forEach(function(livro){
+                if (livro.nome === nomeBusca){
+                    const novoPreco = parseFloat(prompt("Qual será o novo preço? "));
+                    const novaDescricao = prompt("E a nova descrição? ");
+
+                    livro.preco = novoPreco;
+                    livro.descricao = novaDescricao;
+
+                    alert("Eba! As informações do livro foram atualizadas!");
+                    encontrado = true;
+                }
+            });
+
+            if (!encontrado){
+                alert("Ops! Parece que esse livro ainda não está no nosso catálogo :(");
+            }
+        }
+
+        function removerLivro(){
+            const nomeBusca = prompt("Qual o nome do livro que você deseja remover? ");
+            let encontrado = false;
+
+            catalogoLivros.forEach(function(livro, index) {
+                if (livro.nome === nomeBusca){
+                    catalogoLivros.splice(index, 1);
+                    alert("Prontinho! O livro já foi removido do catálogo!");
+                    encontrado = true;
+                }
+            });
+
+            if (!encontrado){
+                alert("Ops! Parece que esse livro ainda não está no nosso catálogo :(");
+            }
+        }
+    </script>
+</head>
+</body>
+</html>
